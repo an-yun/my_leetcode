@@ -4,17 +4,17 @@
 
 Given a string containing just the characters `'('` and `')'`, find the length of the longest valid (well-formed) parentheses substring.
 
-**Example 1:**
+**Example 1:**  
 
-> **Input:** "(()"
-> **Output:** 2
-> **Explanation:** The longest valid parentheses substring is "()"
+> **Input:** "(()"   
+> **Output:** 2  
+> **Explanation:** The longest valid parentheses substring is "()"  
 
-**Example 2:**
+**Example 2:**  
 
-> **Input:** ")()())"
-> **Output:** 4
-> **Explanation:** The longest valid parentheses substring is "()()"
+> **Input:** ")()())"  
+> **Output:** 4  
+> **Explanation:** The longest valid parentheses substring is "()()"  
 
 ## 分析
 
@@ -26,16 +26,16 @@ In this approach, we consider every possible non-empty even length substring fro
 
 Every time we encounter a `‘(’`, we push it onto the stack. For every `‘)’` encountered, we pop a `‘(’` from the stack. If `‘(’`isn't available on the stack for popping at anytime or if stack contains some elements after processing complete substring, the substring of parentheses is invalid. In this way, we repeat the process for every possible substring and we keep on storing the length of the longest valid string found so far.
 
-> Example:
-> "((())"
->
-> (( --> invalid
-> (( --> invalid
-> () --> valid, length=2
-> )) --> invalid
-> ((()--> invalid
-> (())--> valid, length=4
-> maxlength=4
+> Example:  
+> "((())"  
+>  
+> (( --> invalid  
+> (( --> invalid  
+> () --> valid, length=2  
+> )) --> invalid  
+> ((()--> invalid  
+> (())--> valid, length=4  
+> maxlength=4  
 
 
 
