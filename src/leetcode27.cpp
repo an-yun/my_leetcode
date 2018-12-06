@@ -35,7 +35,7 @@ int test_solution(vector<int> &array, int val)
     return k;
 }
 
-int main(int argc, char const *argv[])
+int main()
 {
     vector<int> l{0, 1, 2, 2, 3, 0, 4, 2};
     int val = 2;
