@@ -85,15 +85,11 @@ class rational
 constexpr rational operator+(const rational &r);
 rational operator-(const rational &r);
 
-// Reversed order operators for - and / between (types convertible to) I and rational
-template <typename T>
-inline rational operator+(T i, const rational &r);
-template <typename T>
-inline rational operator-(T i, const rational &r);
-template <typename T>
-inline rational operator*(T i, const rational &r);
-template <typename T>
-inline rational operator/(T i, const rational &r);
+// binary operators
+inline rational operator+(const rational &l, const rational &r);
+inline rational operator-(const rational &l, const rational &r);
+inline rational operator*(const rational &l, const rational &r);
+inline rational operator/(const rational &l, const rational &r);
 
 // Absolute value
 rational abs(const rational &r);
@@ -150,7 +146,7 @@ rational::rational(F num)
 }
 
 rational::rational(int n, int d)
-: rational(std::abs(n), std::abs(d), (n ^ d) < 0)
+    : rational(std::abs(n), std::abs(d), (n ^ d) < 0)
 {
 }
 
@@ -174,17 +170,42 @@ rational::rational(UI n, UI d, bool negative)
 {
     if (d == 0)
     {
-        std::cerr << "denominator is zero for "<< (negative?"-":"")<<n<<"\\" <<d <<", now set it 0." << std::endl;
+        std::cerr << "denominator is zero for " << (negative ? "-" : "") << n << "\\" << d << ", now set it 0." << std::endl;
         m_unsigned_rational = unsigned_rational(0, 1);
     }
     else
         m_unsigned_rational = unsigned_rational(n, d);
 }
 
-
 constexpr bool rational::negative() const
 {
     return m_negative;
+}
+
+bool rational::operator<(const rational &r) const
+{
+    if (m_negative)
+        return r.m_negative && (m_unsigned_rational > r.m_unsigned_rational);
+    else
+        return !r.m_negative && (m_unsigned_rational < r.m_unsigned_rational);
+}
+
+rational &rational::operator-=(const rational &r)
+{
+    long long n = m_unsigned_rational.numerator() * r.m_unsigned_rational.denominator();
+    n -= r.m_unsigned_rational.numerator() * m_unsigned_rational.denominator();
+    n = std::abs(n);
+    auto d = r.m_unsigned_rational.denominator() * m_unsigned_rational.denominator();
+    m_negative = *this < r;
+    m_unsigned_rational = unsigned_rational(static_cast<UI>(n), d);
+    return *this;
+}
+
+inline rational operator-(const rational &l, const rational &r)
+{
+    rational result(l);
+    result -= r;
+    return result;
 }
 
 std::ostream &operator<<(std::ostream &os, const rational &r)

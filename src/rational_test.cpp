@@ -20,7 +20,7 @@
 #include <string>
 #include <vector>
 
-using b_rational = boost::rational<unsigned>;
+using b_rational = boost::rational<int>;
 using z_rational = zuo::rational;
 using std::vector;
 
@@ -32,10 +32,11 @@ int main()
         std::cout << r << " ";
     std::cout << std::endl;
     std::cout <<brs[1]<<"-"<<brs[0]<<"="<< brs[1]-brs[0]<< std::endl;
-    vector<z_rational>zrs{{4, 1}, {24, 36}, {24, 52}};
+    vector<z_rational>zrs{{4, 1}, {24, 36}, {24, 52},{0.168},{-0.3214}};
     for (auto &r : zrs)
         std::cout << r << " ";
     std::cout << std::endl;
+
     std::cout <<zrs[1]<<"-"<<zrs[0]<<"="<< zrs[1]-zrs[0]<< std::endl;
     return 0;
 }
