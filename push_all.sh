@@ -1,2 +1,2 @@
-git push -u origin master
+git push origin master
 git_proxy push github master
