@@ -5,19 +5,23 @@ namespace zuo
 /*
 * for public typedef
 */
-typedef unsigned long int_type;
-typedef boost::rational<int_type> unsigned_rational;
+typedef double F;
+typedef long I;
+typedef unsigned long UI;
+typedef boost::rational<unsigned long long> unsigned_rational;
 
 class rational : public unsigned_rational
 {
   public:
-    typedef int_type I;
-
     // Constructors
-    rational() = default;           // Zero
-    constexpr rational(double num);
-    constexpr rational(long int num);
-    rational(I n, I d, bool negative);             // General case (n/d)
+    constexpr rational(); // Zero
+    constexpr rational(F num);
+    constexpr rational(I num);
+    constexpr rational(UI num);
+    rational(UI n, UI d, bool negative); // General case (n/d)
+    rational(UI n, I d);
+    rational(I n, UI d);
+    rational(I n, I d);
 
     // Normal copy constructors and assignment operators
 
@@ -70,22 +74,64 @@ class rational : public unsigned_rational
     bool m_negative;
 };
 
-
 // Unary operators
- constexpr rational operator+ (const rational& r);
-           rational operator- (const rational& r);
+constexpr rational operator+(const rational &r);
+rational operator-(const rational &r);
 
 // Reversed order operators for - and / between (types convertible to) I and rational
-template <typename I, typename II> inline rational operator- (II i, const rational& r);
-template <typename I, typename II> inline rational operator/ (II i, const rational& r);
+template <typename T>
+inline rational operator+(T i, const rational &r);
+template <typename T>
+inline rational operator-(T i, const rational &r);
+template <typename T>
+inline rational operator*(T i, const rational &r);
+template <typename T>
+inline rational operator/(T i, const rational &r);
 
 // Absolute value
- rational abs (const rational& r);
+rational abs(const rational &r);
 
 // Input and output
- std::istream& operator>> (std::istream& is, rational& r);
- std::ostream& operator<< (std::ostream& os, const rational& r);
+std::istream &operator>>(std::istream &is, rational &r);
+std::ostream &operator<<(std::ostream &os, const rational &r);
 
 // Type conversion
-template <typename T> constexpr T rational_cast (const rational& r);
+template <typename T>
+constexpr T rational_cast(const rational &r);
+
+/*
+ * Implemention for rational
+ * 
+ * */
+constexpr rational::rational() : unsigned_rational(), m_negative(false) {}
+
+constexpr rational::rational(F num)
+{
+}
+constexpr rational::rational(I num)
+{
+}
+constexpr rational::rational(UI num)
+{
+}
+rational(UI n, UI d, bool negative)
+{
+}
+rational(UI n, I d)
+{
+}
+rational(I n, UI d)
+{
+}
+rational(I n, I d);
+
+std::ostream &operator<<(std::ostream &os, const rational &r)
+{
+    const unsigned_rational *p = &r;
+    if (r.negative())
+        os << "-" << *p;
+    else
+        os << *p;
+    return os;
+}
 } // namespace zuo
