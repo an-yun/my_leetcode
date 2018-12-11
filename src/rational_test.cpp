@@ -32,7 +32,7 @@ int main()
         std::cout << r << " ";
     std::cout << std::endl;
     std::cout <<brs[1]<<"-"<<brs[0]<<"="<< brs[1]-brs[0]<< std::endl;
-    vector<z_rational>zrs{{4, 1}, {24, 36}, {24, 52},{0.168},{-0.3214}};
+    vector<z_rational>zrs{{4, 1}, {24, 36}, {24, 52},{0.168},{-0.3214},{138, -51}};
     for (auto &r : zrs)
         std::cout << r << " ";
     std::cout << std::endl;
