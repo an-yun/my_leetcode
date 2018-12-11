@@ -20,7 +20,7 @@
 int main(int argc, char const *argv[])
 {
     using zuo::unsigned_rational;
-    unsigned_rational a(2,1);
+    unsigned_rational a(2, 1);
     std::cout << a;
     return 0;
 }
