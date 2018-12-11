@@ -14,12 +14,15 @@
  * date  : 2018年 12月 10日 星期一 22:06:42 CST
  */
 
-#include <iostream>
 #include "maxflow.h"
+#include <iostream>
 
-int main(int argc, char const *argv[])
+int main()
 {
-    unsigned b = std::abs(-1456711111178945466);
-    std::cout <<b;
+    std::vector<zuo::rational> rationals{
+        {0.436}, {0.831}, {0.125}, {0.8}, {-0.8}, {13}, {-28}, {9, 0}};
+    for (auto &r : rationals)
+        std::cout << r << " ";
+    std::cout << std::endl;
     return 0;
 }
