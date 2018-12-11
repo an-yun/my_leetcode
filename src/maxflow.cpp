@@ -19,8 +19,7 @@
 
 int main(int argc, char const *argv[])
 {
-    using zuo::unsigned_rational;
-    unsigned_rational a(2, 1);
-    std::cout << a;
+    unsigned b = std::abs(-1456711111178945466);
+    std::cout <<b;
     return 0;
 }

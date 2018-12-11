@@ -1,24 +1,27 @@
 #include "boost/rational.hpp"
-
+#include <algorithm>
+#include <iostream>
 namespace zuo
 {
-/*
-* for public typedef
-*/
-typedef double F;
-typedef long I;
-typedef unsigned long UI;
-typedef boost::rational<unsigned long long> unsigned_rational;
 
-class rational : public unsigned_rational
+class rational
 {
+    friend std::istream &operator>>(std::istream &is, rational &r);
+    friend std::ostream &operator<<(std::ostream &os, const rational &r);
+
   public:
+    typedef double F;
+    typedef long I;
+    typedef unsigned long UI;
+    typedef boost::rational<UI> unsigned_rational;
+    static const UI UI_MAX = ULONG_MAX;
+
     // Constructors
     constexpr rational(); // Zero
-    constexpr rational(F num);
-    constexpr rational(I num);
+    rational(F num);
+    rational(I num);
     constexpr rational(UI num);
-    rational(UI n, UI d, bool negative); // General case (n/d)
+    rational(UI n, UI d, bool negative = false); // General case (n/d)
     rational(UI n, I d);
     rational(I n, UI d);
     rational(I n, I d);
@@ -72,6 +75,7 @@ class rational : public unsigned_rational
 
   private:
     bool m_negative;
+    unsigned_rational m_unsigned_rational;
 };
 
 // Unary operators
@@ -103,35 +107,73 @@ constexpr T rational_cast(const rational &r);
  * Implemention for rational
  * 
  * */
-constexpr rational::rational() : unsigned_rational(), m_negative(false) {}
+constexpr rational::rational()
+    : m_negative(false), m_unsigned_rational() {}
 
-constexpr rational::rational(F num)
+rational::rational(F num)
 {
+    m_negative = num < 0;
+    num = std::abs(num);
+    UI i = 1;
+    while (num * i - static_cast<UI>(num * i) != 0)
+    {
+        if (i > UI_MAX / 10)
+        {
+            std::cerr << "this frational number : " << num << " can not be transfer to rational number, it's too long, now set it 0." << std::endl;
+            m_unsigned_rational = unsigned_rational(0, 1);
+            return;
+        }
+        else
+        {
+            i *= 10;
+        }
+    }
+    m_unsigned_rational = unsigned_rational(static_cast<UI>(num * i), i);
 }
-constexpr rational::rational(I num)
+rational::rational(I num)
+    : rational(std::abs(num), 1, num < 0)
 {
 }
 constexpr rational::rational(UI num)
+    : m_negative(), m_unsigned_rational(num)
 {
 }
-rational(UI n, UI d, bool negative)
+
+rational::rational(UI n, UI d, bool negative)
+    : m_negative(negative && n != 0), m_unsigned_rational(n, 1)
+{
+    if (d == 0)
+    {
+        std::cerr << "denominator is zero, now set it 0." << std::endl;
+        m_unsigned_rational = unsigned_rational(0, 1);
+    }
+    else
+        m_unsigned_rational = unsigned_rational(n, d);
+}
+rational::rational(UI n, I d)
+    : m_negative(d < 0), m_unsigned_rational(n, d)
 {
 }
-rational(UI n, I d)
+rational::rational(I n, UI d)
+    : rational(std::abs(n), d, n < 0)
 {
 }
-rational(I n, UI d)
+rational::rational(I n, I d)
+    : rational(std::abs(n), std::abs(d), (n ^ d) < 0)
 {
 }
-rational(I n, I d);
+
+constexpr bool rational::negative() const
+{
+    return m_negative;
+}
 
 std::ostream &operator<<(std::ostream &os, const rational &r)
 {
-    const unsigned_rational *p = &r;
     if (r.negative())
-        os << "-" << *p;
+        os << "-" << r.m_unsigned_rational;
     else
-        os << *p;
+        os << r.m_unsigned_rational;
     return os;
 }
 } // namespace zuo
