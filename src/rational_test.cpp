@@ -13,16 +13,29 @@
  * author: zuo
  * date  : 2018年 12月 10日 星期一 22:06:42 CST
  */
-
-#include "maxflow.h"
+#include "boost/rational.hpp"
+#include "zuo/rational.hpp"
+#include <algorithm>
 #include <iostream>
+#include <string>
+#include <vector>
+
+using b_rational = boost::rational<unsigned>;
+using z_rational = zuo::rational;
+using std::vector;
 
 int main()
 {
-    std::vector<zuo::rational> rationals{
-        {0.436}, {0.831}, {0.125}, {0.8}, {-0.8}, {13}, {-28}, {9, 0}};
-    for (auto &r : rationals)
+    // test for boost ration
+    vector<b_rational> brs{{4, 1}, {24, 36}, {24, 52}};
+    for (auto &r : brs)
         std::cout << r << " ";
     std::cout << std::endl;
+    std::cout <<brs[1]<<"-"<<brs[0]<<"="<< brs[1]-brs[0]<< std::endl;
+    vector<z_rational>zrs{{4, 1}, {24, 36}, {24, 52}};
+    for (auto &r : zrs)
+        std::cout << r << " ";
+    std::cout << std::endl;
+    std::cout <<zrs[1]<<"-"<<zrs[0]<<"="<< zrs[1]-zrs[0]<< std::endl;
     return 0;
 }
