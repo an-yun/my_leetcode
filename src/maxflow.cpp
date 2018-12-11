@@ -14,4 +14,13 @@
  * date  : 2018年 12月 10日 星期一 22:06:42 CST
  */
 
+#include <iostream>
+#include "maxflow.h"
 
+int main(int argc, char const *argv[])
+{
+    using zuo::unsigned_rational;
+    unsigned_rational a(2,1);
+    std::cout << a;
+    return 0;
+}
