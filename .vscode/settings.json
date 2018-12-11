@@ -4,7 +4,8 @@
         "type_traits": "cpp",
         "algorithm": "cpp",
         "list": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "iosfwd": "cpp"
     },
 
 }
