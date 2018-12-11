@@ -6,18 +6,5 @@
         "list": "cpp",
         "iostream": "cpp"
     },
-    "clang.cflags": [ // 控制c语言静态检测的参数
-        "--target=x86_64-linux-gnu",
-        "-std=c11",
-        "-W",
-        "-Wall",
-        "-I/home/zuo/anaconda3/include"
-    ],
-    "clang.cxxflags": [ // 控制c++静态检测时的参数
-        "--target=x86_64-linux-gnu",
-        "-std=c++11",
-        "-W",
-        "-Wall",
-        "-I/home/zuo/anaconda3/include"
-    ],
+
 }
