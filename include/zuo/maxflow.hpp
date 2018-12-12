@@ -14,8 +14,9 @@
  * date  : 2018年 12月 10日 星期一 22:06:42 CST
  */
 
-#include "zuo/rational.hpp"
+#include "boost/rational.hpp"
 #include <algorithm>
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -29,21 +30,42 @@ typedef unsigned index_t;
 
 class Node
 {
-public:
-  /*
-    * public api
-    */
-  Node(string name = "", index_t index = 0);
-  string name() const;
-  index_t index() const;
+  public:
+    /*
+      * public api
+      */
+    Node(string name = "", index_t index = 0);
+    string name() const;
+    index_t index() const;
 
-private:
-  string m_name;
-  index_t m_index;
+  private:
+    string m_name;
+    index_t m_index;
 };
+
+using boost_rational = boost::rational<long long>;
+
+boost_rational double2ratonal(double num)
+{
+    long long i = 1;
+    while (std::abs(num - static_cast<long long>(num)) > 1e-9)
+    {
+      if (std::abs(num) > LONG_LONG_MAX / 10 || i > LONG_LONG_MAX / 10)
+      {
+        std::cerr << "convert " << num << " to rational faled: it's too long. Now set it 0." << std::endl;
+        return {};
+      }
+      else
+      {
+        i *= 10;
+        num *= 10;
+      }
+    }
+    return {static_cast<long long>(num), i};
+}
 
 class Edge
 {
-private:
+  private:
 };
 } // namespace zuo
