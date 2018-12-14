@@ -9,7 +9,7 @@ void double_2_rational_test()
     {
         auto r = zuo::double2ratonal(num);
         std::cout << num << "->" << r<<", ";
-        if(std::abs(zuo::rational2double(r) - num)> zuo::EPSILON)
+        if(std::abs(boost::rational_cast<double>(r) - num)> zuo::EPSILON)
             std::cout << "test failed for :" << num << "->" << r ;
         std::cout << std::endl;
     }
