@@ -43,12 +43,13 @@ class Node
     index_t m_index;
 };
 
+const double EPSILON = 1e-9;
 using boost_rational = boost::rational<long long>;
 
 boost_rational double2ratonal(double num)
 {
     long long i = 1;
-    while (std::abs(num - static_cast<long long>(num)) > 1e-9)
+    while (std::abs(num - static_cast<long long>(num)) > EPSILON)
     {
       if (std::abs(num) > LONG_LONG_MAX / 10 || i > LONG_LONG_MAX / 10)
       {
@@ -62,6 +63,11 @@ boost_rational double2ratonal(double num)
       }
     }
     return {static_cast<long long>(num), i};
+}
+
+double rational2double(const boost_rational &r)
+{
+    return 1.0* r.numerator() / r.denominator();
 }
 
 class Edge
