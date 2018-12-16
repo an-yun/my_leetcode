@@ -8,7 +8,7 @@ using namespace std;
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
-
+        // 从最后一位开始修改
     }
 };
 
