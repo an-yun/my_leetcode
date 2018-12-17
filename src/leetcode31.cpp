@@ -9,6 +9,7 @@ class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
         // 从最后一位开始修改
+        next_permutation(nums.begin(), nums.end());
     }
 };
 
