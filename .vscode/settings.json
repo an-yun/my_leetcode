@@ -59,7 +59,8 @@
         "typeinfo": "cpp",
         "utility": "cpp",
         "valarray": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "regex": "cpp"
     },
 
 }
