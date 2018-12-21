@@ -60,6 +60,7 @@ class Solution
         {
             s_words[w] = s.substr(start + w * unit, unit);
         }
+        //排序后比较
         sort(s_words.begin(), s_words.end());
         return words == s_words;
     }
