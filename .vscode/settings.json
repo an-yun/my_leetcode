@@ -60,7 +60,9 @@
         "utility": "cpp",
         "valarray": "cpp",
         "string": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "memory_resource": "cpp",
+        "string_view": "cpp"
     },
 
 }

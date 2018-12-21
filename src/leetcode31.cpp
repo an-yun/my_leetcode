@@ -38,9 +38,9 @@ int main()
 {
     Solution s;
     vector<int> nums{1,1,5};
-    print_vector(nums);
+    print(nums);
     s.nextPermutation(nums);
     cout << "Next permutation:" << endl;
-    print_vector(nums);
+    print(nums);
     return 0;
 }
