@@ -10,11 +10,11 @@ int min_max_pages()
     // for special cases
     if (M > N)
         return -1;
-    if(M==N)
+    if (M == N)
         return *max_element(A, A + N);
 
     //dvide and conquer
-
+    
     return 0;
 }
 
