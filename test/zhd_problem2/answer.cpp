@@ -14,6 +14,7 @@ int main()
     scanf("%d", &T);
     for (int t = 0; t < T; t++)
     {
+        nums.clear();
         scanf("%d", &N);
         ULL num,inversion_count = 0;
         for (int n = 0; n < N;n++)
