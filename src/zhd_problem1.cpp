@@ -63,6 +63,7 @@ int main()
             scanf("%d", &M);
             printf("%d\n", min_max_pages());
         }
+        printf("\n");
     }
     return 0;
 }
