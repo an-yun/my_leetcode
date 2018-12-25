@@ -1,6 +1,6 @@
 #include <algorithm>
-#include <numeric>
 #include <cstdio>
+#include <numeric>
 
 using namespace std;
 
@@ -8,16 +8,16 @@ int T, N, A[250], M;
 
 bool check_validity(int max_pages)
 {
-    int min_students = 1,current_pages= 0;
-    for (int i = 0; i < N;i++)
+    int min_students = 1, current_pages = 0;
+    for (int i = 0; i < N; i++)
     {
-        if(A[i] > max_pages)
+        if (A[i] > max_pages)
             return false;
         if (current_pages + A[i] > max_pages)
         {
             min_students++;
             current_pages = A[i];
-            if(min_students > M)
+            if (min_students > M)
                 return false;
         }
         else
@@ -37,30 +37,32 @@ int min_max_pages()
     //binary search
     int end = accumulate(A, A + N, 0), start = end / M;
     int min_pages = __INT_MAX__;
-    while(start <= end)
+    while (start <= end)
     {
         int mid = (start + end) / 2;
-        if(check_validity(mid))
+        if (check_validity(mid))
         {
             min_pages = mid;
-            start = mid + 1;
+            end = mid - 1;
         }
         else
-            end = mid - 1;
+            start = mid + 1;
     }
     return min_pages;
 }
 
 int main()
 {
-    scanf("%d", &T);
-    for (int i = 0; i < T; i++)
+    while (scanf("%d", &T) == 1)
     {
-        scanf("%d", &N);
-        for (int n = 0; n < N; n++)
-            scanf("%d", A + n);
-        scanf("%d", &M);
-        printf("%d\n", min_max_pages());
+        for (int i = 0; i < T; i++)
+        {
+            scanf("%d", &N);
+            for (int n = 0; n < N; n++)
+                scanf("%d", A + n);
+            scanf("%d", &M);
+            printf("%d\n", min_max_pages());
+        }
     }
     return 0;
 }

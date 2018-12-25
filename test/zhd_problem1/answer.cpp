@@ -91,14 +91,16 @@ int findPages(int arr[], int n, int m)
 int main()
 {
     int T, N, A[250], M;
-    scanf("%d", &T);
-    for (int i = 0; i < T; i++)
+    while (scanf("%d", &T) == 1)
     {
-        scanf("%d", &N);
-        for (int n = 0; n < N; n++)
-            scanf("%d", A + n);
-        scanf("%d", &M);
-        printf("%d\n", findPages(A,N,M));
+        for (int i = 0; i < T; i++)
+        {
+            scanf("%d", &N);
+            for (int n = 0; n < N; n++)
+                scanf("%d", A + n);
+            scanf("%d", &M);
+            printf("%d\n", findPages(A, N, M));
+        }
     }
     return 0;
 }
