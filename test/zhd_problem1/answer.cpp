@@ -6,7 +6,25 @@ using namespace std;
 
 int T, N, A[250], M;
 
-bool check_validity(int max_pages)
+inline bool check_validity(int max_pages);
+inline int min_max_pages();
+
+int main()
+{
+    scanf("%d", &T);
+
+    for (int i = 0; i < T; i++)
+    {
+        scanf("%d", &N);
+        for (int n = 0; n < N; n++)
+            scanf("%d", A + n);
+        scanf("%d", &M);
+        printf("%d\n", min_max_pages());
+    }
+    return 0;
+}
+
+inline bool check_validity(int max_pages)
 {
     int min_students = 1, current_pages = 0;
     for (int i = 0; i < N; i++)
@@ -26,7 +44,7 @@ bool check_validity(int max_pages)
     return true;
 }
 
-int min_max_pages()
+inline int min_max_pages()
 {
     // for special cases
     if (M > N)
@@ -49,19 +67,4 @@ int min_max_pages()
             start = mid + 1;
     }
     return min_pages;
-}
-
-int main()
-{
-    scanf("%d", &T);
-
-    for (int i = 0; i < T; i++)
-    {
-        scanf("%d", &N);
-        for (int n = 0; n < N; n++)
-            scanf("%d", A + n);
-        scanf("%d", &M);
-        printf("%d\n", min_max_pages());
-    }
-    return 0;
 }
