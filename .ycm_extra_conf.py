@@ -52,7 +52,7 @@ flags = [
 '-x',
 'c++',
 '-I/usr/include/',
-'-I/usr/include/c++/7.3.0',
+'-I/usr/include/c++/7',
 '-Iinclude'
 ]
 
