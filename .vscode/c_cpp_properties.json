@@ -25,12 +25,20 @@
                 "path": [
                     "${workspaceFolder}",
                     "${workspaceFolder}/include"
+                    // "C:/Program Files/LLVM/x86_64-w64-mingw32/include",
+                    // "C:/Program Files/LLVM/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/tr1",
+                    // "C:/Program Files/LLVM/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32",
+                    // "C:/Program Files/LLVM/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"
                 ],
                 "limitSymbolsToIncludedHeaders": true
             },
             "includePath": [
                 "${workspaceFolder}",
                 "${workspaceFolder}/include"
+                // "C:/Program Files/LLVM/x86_64-w64-mingw32/include",
+                // "C:/Program Files/LLVM/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/tr1",
+                // "C:/Program Files/LLVM/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32",
+                // "C:/Program Files/LLVM/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"
             ],
             "defines": [],
             "compilerPath": "C:/Program Files/LLVM/bin/gcc.exe",
