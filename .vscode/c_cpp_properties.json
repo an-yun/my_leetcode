@@ -33,7 +33,7 @@
                 "${workspaceFolder}/include"
             ],
             "defines": [],
-            "compilerPath": "C:\\Program Files\\LLVM\\bin\\clang.exe",
+            "compilerPath": "C:/Program Files/LLVM/bin/gcc.exe",
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "clang-x64"

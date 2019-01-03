@@ -62,7 +62,8 @@
         "string": "cpp",
         "regex": "cpp",
         "memory_resource": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "queue": "cpp"
     },
 
 }

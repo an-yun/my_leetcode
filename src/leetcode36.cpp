@@ -11,6 +11,7 @@ private:
     
     bool check_board()
     {
+
         
         return true;
     }
@@ -22,6 +23,6 @@ public:
 };
 int main()
 {
-
+    
     return 0;
 }
