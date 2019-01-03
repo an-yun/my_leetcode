@@ -1,17 +1,7 @@
 {
     "version": "0.2.0",
     "configurations": [
-        {
-            "name": "Windows Debug",
-            "type": "gdb",
-            "request": "launch",
-            "target": "${workspaceFolder}/build/${fileBasenameNoExtension}.exe",
-            "cwd": "${workspaceFolder}/build",
-            "arguments": "",
-            "preLaunchTask": "Windows Compile",
-            "valuesFormatting": "prettyPrinters",
-            "terminal": ""
-        },
+
         {
             "name": "Linux Debug", // 配置名称，将会在启动配置的下拉菜单中显示
             "type": "lldb", // 配置类型，这里只能为cppdbg
@@ -27,5 +17,16 @@
             "preLaunchTask": "Linux Compile" // 调试会话开始前执行的任务，一般为编译程序。与tasks.json的label相对应,
             
         }
+        {
+            "name": "Windows Debug",
+            "type": "gdb",
+            "request": "launch",
+            "target": "${workspaceFolder}/build/${fileBasenameNoExtension}.exe",
+            "cwd": "${workspaceFolder}/build",
+            "arguments": "",
+            "preLaunchTask": "Windows Compile",
+            "valuesFormatting": "prettyPrinters",
+            "terminal": ""
+        },
     ]
 }
