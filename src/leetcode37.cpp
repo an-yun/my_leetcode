@@ -5,10 +5,12 @@
 
 using namespace std;
 
-class Solution {
+class Solution
+{
 public:
-    void solveSudoku(vector<vector<char>>& board) {
-        
+    void solveSudoku(vector<vector<char>> &board)
+    {
+
     }
 };
 int main()
