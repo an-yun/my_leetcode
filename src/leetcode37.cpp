@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <vector>
 #include <queue>
@@ -7,19 +6,9 @@
 using namespace std;
 
 class Solution {
-private:
-    vector<vector<char>> m_board;
-    
-    bool check_board()
-    {
-
-        
-        return true;
-    }
 public:
-    bool isValidSudoku(vector<vector<char>>& board) {
-        m_board = board;    
-        return check_board();        
+    void solveSudoku(vector<vector<char>>& board) {
+        
     }
 };
 int main()
