@@ -8,12 +8,6 @@ inline void print(const T &t)
 {
     std::cout << t;
 }
-template <typename T>
-inline void println(const T &t)
-{
-    std::cout << t << std::endl;
-}
-
 // 打印vector
 template <typename T>
 inline void print(const std::vector<T> &t)
@@ -28,14 +22,6 @@ inline void print(const std::vector<T> &t)
     }
     std::cout << ']';
 }
-// 打印vector
-template <typename T>
-inline void println(const std::vector<T> &t)
-{
-    print(t);
-    std::cout << std::endl;
-}
-
 // 泛化的打印函数
 template <typename T, typename... Args>
 inline void print(const T &t, const Args... rest)
@@ -43,6 +29,13 @@ inline void print(const T &t, const Args... rest)
     print(t);
     std::cout << ", ";
     print(rest...);
+}
+
+template <typename T>
+inline void println(const T &t)
+{
+    print(t);
+    std::cout << std::endl;
 }
 
 template <typename T, typename... Args>
