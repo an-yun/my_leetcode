@@ -33,7 +33,6 @@ Every time we encounter a \text{‘(’}‘(’, we push it onto the stack. For 
 ```
 Example:
 "((())"
-
 (( --> invalid
 (( --> invalid
 () --> valid, length=2
@@ -88,7 +87,7 @@ This problem can be solved by using Dynamic Programming. We make use of a \text{
 
 To fill \text{dp}dp array we will check every two consecutive characters of the string and if
 
-1. \text{s}[i] = \text{‘)’}s[i]=‘)’ and \text{s}[i - 1] = \text{‘(’}s[i−1]=‘(’, i.e. string looks like ``.......()" \Rightarrow‘‘.......()"⇒
+1. $\text{s}[i] = \text{‘)’}s[i]=‘)’$ and \text{s}[i - 1] = \text{‘(’}s[i−1]=‘(’, i.e. string looks like ``.......()" \Rightarrow‘‘.......()"⇒
 
    \text{dp}[i]=\text{dp}[i-2]+2dp[i]=dp[i−2]+2
 
