@@ -28,7 +28,7 @@ class Solution
         {
             for (int y = 0; y < 3; ++y)
             {
-                if (board[box_x*3 + x][box_y*3 + y] == value)
+                if (board[box_x * 3 + x][box_y * 3 + y] == value)
                     return false;
             }
         }
@@ -83,7 +83,8 @@ int main()
             {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
             {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
             {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
-            {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
+            {'.', '.', '.', '.', '8', '.', '.', '7', '9'}
+        };
     Solution s;
     s.solveSudoku(board);
     println(board);

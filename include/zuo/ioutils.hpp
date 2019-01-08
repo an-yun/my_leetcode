@@ -21,7 +21,7 @@ struct is_vector<std::vector<T, A>> : public std::true_type
     static inline void print_delimiter() { print("\n "); }
 };
 
-//打印vector
+//打印vector,利用函数重载(不是部分特例化)达到的
 template <typename T>
 inline void print(const std::vector<T> &t)
 {
