@@ -86,7 +86,6 @@ int main()
             {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
     Solution s;
     s.solveSudoku(board);
-    for (auto &row : board)
-        println(row);
+    println(board);
     return 0;
 }
