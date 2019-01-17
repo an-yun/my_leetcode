@@ -61,14 +61,38 @@ class Solution
             return false;
         str = s;
         pattern = p;
-        vector<map<size_t, bool>> cache(s_size + 1);
-        cache[s_size][p_size] = true;
-        return isMatch(0, 0, cache);
+        // vector<map<size_t, bool>> cache(s_size + 1);
+        // cache[s_size][p_size] = true;
+        // return isMatch(0, 0, cache);
+        return isMatch();
+    }
+    bool isMatch()
+    {
+        vector<vector<bool>> match_table(s_size + 2, vector<bool>(p_size + 2, false));
+        match_table[s_size][p_size] = true;
+        vector<bool> true_indices(p_size + 1, false);
+        true_indices[p_size] = true;
+        for (int i = s_size; i >= 0; i--)
+        {
+            for (int j = p_size - 1; j >= 0;j--)
+            {
+                auto c = pattern[j];
+                if(c == '?')
+                    match_table[i][j] = match_table[i + 1][j + 1];
+                else if (c == '*')
+                    match_table[i][j] = true_indices[j + 1];
+                else
+                    match_table[i][j] = i < s_size && c == str[i] && match_table[i + 1][j + 1];
+                if(match_table[i][j])
+                    true_indices[j] = true;
+            }
+        }
+        return match_table[0][0];
     }
 };
 
 int main()
 {
     Solution s;
-    println(s.isMatch("adceb", "*a*b"));
+    println(s.isMatch("cb", "?b"));
 }
