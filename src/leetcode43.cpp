@@ -38,5 +38,5 @@ public:
 int main()
 {
     Solution s;
-    println(s.multiply("123","456"));
+    println(s.multiply("1231","456"));
 }
