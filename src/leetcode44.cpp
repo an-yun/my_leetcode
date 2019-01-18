@@ -82,7 +82,7 @@ class Solution
                 else if (c == '*')
                     match_table[i][j] = true_indices[j + 1];
                 else
-                    match_table[i][j] = i < s_size && c == str[i] && match_table[i + 1][j + 1];
+                    match_table[i][j] = i < static_cast<int>(s_size) && c == str[i] && match_table[i + 1][j + 1];
                 if(match_table[i][j])
                     true_indices[j] = true;
             }

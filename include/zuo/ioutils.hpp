@@ -9,6 +9,12 @@ inline void print(const T &t)
 {
     std::cout << t;
 }
+// 打印bool类型
+template <>
+inline void print<bool>(const bool &b)
+{
+    std::cout<<(b?"true":"false");
+}
 // tag dispatch
 template<typename T> struct is_vector : public std::false_type 
 {
