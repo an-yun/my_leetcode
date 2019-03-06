@@ -57,6 +57,7 @@ int main()
             {9},
             {6}};
     Solution s;
+    println(s.spiralOrder(matrix));
     println(s.spiralOrder(matrix1));
     return 0;
 }
