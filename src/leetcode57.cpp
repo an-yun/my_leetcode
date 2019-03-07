@@ -41,7 +41,7 @@ class Solution
     {
         auto b = intervals.begin(), e = intervals.end();
         auto next_inter = lower_bound(b, e, newInterval, compare_interval);
-        auto less_end = b;
+        auto less_end = next_inter;
         if (next_inter != b)
         {
             auto pre_inter = next_inter - 1;
@@ -51,15 +51,12 @@ class Solution
                 newInterval.end = max(newInterval.end, pre_inter->end);
                 less_end = pre_inter;
             }
-            else
-                less_end = next_inter;
         }
         while (next_inter != e && next_inter->start <= newInterval.end)
         {
             newInterval.end = max(newInterval.end, next_inter->end);
             next_inter++;
         }
-
         vector<Interval> result(b, less_end);
         result.push_back(newInterval);
         result.insert(result.end(), next_inter, e);
