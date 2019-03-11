@@ -24,7 +24,7 @@ template<typename T> struct is_vector : public std::false_type
 template<typename T, typename A>
 struct is_vector<std::vector<T, A>> : public std::true_type
 {
-    static inline void print_delimiter() { print("\n "); }
+    static inline void print_delimiter() { print(",\n "); }
 };
 
 //打印vector,利用函数重载(不是部分特例化)达到的
