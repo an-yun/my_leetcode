@@ -19,9 +19,14 @@ class Solution
         swap(*border, *first_lager);
         reverse(border + 1, e);
     }
+    static int factorial(int i) 
+    {
+        static int fact[]{1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880};
+        return fact[i];
+    }
 
   public:
-    string getPermutation(int n, int k)
+    string getPermutation1(int n, int k)
     {
         string result(n, '1');
         iota(result.begin(), result.end(), '1');
@@ -36,11 +41,41 @@ class Solution
             next(result);
         return result;
     }
+
+    string getPermutation(int n, int k)
+    {
+        string result(n, '1');
+        iota(result.begin(), result.end(), '1');
+        if(k==1)
+            return result;
+        if (k == factorial(n))
+        {
+            reverse(result.begin(), result.end());
+            return result;
+        }
+        for (int i = 0, left = n - 1; i < n;i++, left--)
+        {
+            int current_num = (k - 1) / factorial(left), current_index =current_num+i;
+            swap(result[i], result[current_index]);
+            while(current_index > i+1 && result[current_index] < result[current_index-1])
+            {
+                swap(result[current_index], result[current_index-1]);
+                current_index--;
+            }
+            while(current_index < n-1 && result[current_index] > result[current_index+1])
+            {
+                swap(result[current_index], result[current_index+1]);
+                current_index++;
+            }
+            k -= current_num * factorial(left);
+        }
+        return result;
+    }
 };
 
 int main()
 {
     Solution s;
-    println(s.getPermutation(4, 9));
+    println(s.getPermutation(4, 6));
     return 0;
 }
