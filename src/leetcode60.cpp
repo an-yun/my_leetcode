@@ -28,6 +28,7 @@ class Solution
   public:
     string getPermutation1(int n, int k)
     {
+        //time comlexity n!
         string result(n, '1');
         iota(result.begin(), result.end(), '1');
         if(k==1)
@@ -44,6 +45,7 @@ class Solution
 
     string getPermutation(int n, int k)
     {
+        //time comlexity n^2
         string result(n, '1');
         iota(result.begin(), result.end(), '1');
         if(k==1)
