@@ -54,12 +54,19 @@ inline void print(const T &t, const Args... rest)
     print(rest...);
 }
 
+void println()
+{
+    std::cout << std::endl;
+}
+
 template <typename T>
 inline void println(const T &t)
 {
     print(t);
     std::cout << std::endl;
 }
+
+
 
 template <typename T, typename... Args>
 inline void println(const T &t, const Args... rest)
