@@ -40,6 +40,6 @@ void test_memory()
 int main()
 {
     test_memory();
-    //double_2_rational_test();
+    double_2_rational_test();
     return 0;
 }

@@ -5,12 +5,14 @@
             "browse": {
                 "path": [
                     "${workspaceFolder}",
+                    "/usr/local/include",
                     "${workspaceFolder}/include"
                 ],
                 "limitSymbolsToIncludedHeaders": true
             },
             "includePath": [
                 "${workspaceFolder}",
+                "/usr/local/include",
                 "${workspaceFolder}/include"
             ],
             "defines": [],
