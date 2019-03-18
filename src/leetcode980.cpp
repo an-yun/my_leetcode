@@ -17,7 +17,7 @@ class Solution
         int m = grid.size(), n = grid[0].size();
         int solution_count = 0;
         int start_x = 0, start_y = 0, total_length = 2;
-        //find start
+        //find start and count path length
         for (int i = 0; i < m; i++)
         {
             for (int j = 0; j < n; j++)
@@ -42,21 +42,26 @@ class Solution
             int next_x = x, next_y = y;
             switch (next++)
             {
-            case 3:
+            case 3: //right
                 next_y++;
                 break;
-            case 4:
+            case 4: //down
                 next_x++;
                 break;
-            case 5:
+            case 5: //left
                 next_y--;
                 break;
-            case 6:
+            case 6: // up
                 next_x--;
                 break;
-            case 7:
-                if(x == start_x && y == start_y)
+            case 7: //backtrace
+                if (x == start_x && y == start_y)
+                {
+                    grid[x][y] = 1;
+                    // start postion backtrace is end
                     return solution_count;
+                }
+
                 position_info = 0; //backtrace
                 length_count--;
                 switch (pre)
@@ -86,9 +91,9 @@ class Solution
                 int &next_info = grid[next_x][next_y];
                 if (next_info == -1 || next_info > 2)
                     continue;
-                else if(next_info == 2)//end position
+                else if (next_info == 2) //end position
                 {
-                    if(length_count +1 == total_length)//find a path
+                    if (length_count + 1 == total_length) //find a path
                         solution_count++;
                 }
                 else // visit the node
@@ -108,10 +113,10 @@ int main()
 {
     Solution s;
     vector<vector<int>> grid{
-        {0, 0, 0, 0,0},
-        {0, 2, 1, 0,0},
-        {0, 0, 0, 0,0},
-        {0, 0, 0, 0,0},
+        {0, 0, 0, 0, 0},
+        {0, 2, 1, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
     };
     println(s.uniquePathsIII(grid));
     return 0;
