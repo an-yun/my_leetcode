@@ -15,8 +15,6 @@ public:
     bool isOneEditDistance(string s, string t)
     {
         int m = s.size(), n = t.size();
-        if( m + n == 0 ) return false;
-        if( m + n == 1 ) return true;
         switch(abs(m-n))
         {
             case 0:
@@ -30,7 +28,7 @@ public:
                             else have_replaced = true;
                         }
                     }
-                    return true;
+                    return have_replaced;
                 }
             case 1:
                 {
@@ -43,18 +41,17 @@ public:
                             if(have_deleted) return false;
                             else 
                             {
-                                if(s_less)++j;
-                                else ++i;
+                                if(s_less)--i;
+                                else --j;
                                 have_deleted = true;
                             }
                         }
                     }
-                    return true;
+                    return have_deleted;
                 }
             default:
                 return false;
         }
-        
         return false;
     }
 };
@@ -62,6 +59,6 @@ public:
 int main()
 {
     Solution s;
-    println(s.isOneEditDistance("aca","ab"));
+    println(s.isOneEditDistance("bcd","bcb"));
     return 0;
 }
