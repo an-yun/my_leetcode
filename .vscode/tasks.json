@@ -18,7 +18,7 @@
                 "-I/usr/local/include",
                 "-I${workspaceRoot}/include",
                 "-L/usr/local/lib",
-                "-lboost_regex"
+                //"-lboost_regex"
             ],
             "presentation": {
                 "echo": true,
