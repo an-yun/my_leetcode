@@ -15,24 +15,19 @@ class Trie
 {
   public:
     int index;
-    bool is_leave;
     shared_ptr<Trie> nodes[26];
-    Trie(int index = -1) : index(index), is_leave(true) {}
+    Trie(int index = -1) : index(index) {}
 };
-void insert_word(shared_ptr<Trie> trie, const string &word, size_t p, int index = -1)
+void insert_word(shared_ptr<Trie> trie, const string &word, int index = -1)
 {
-    if (p >= word.size())
+    for (auto ch : word)
     {
-        trie->index = index;
-        return;
+        int i = ch - 'a';
+        if (trie->nodes[i] == nullptr)
+            trie->nodes[i] = make_shared<Trie>();
+        trie = trie->nodes[i];
     }
-    int i = word[p] - 'a';
-    if (trie->nodes[i] == nullptr)
-    {
-        trie->is_leave = false;
-        trie->nodes[i] = make_shared<Trie>();
-    }
-    insert_word(trie->nodes[i], word, p + 1, index);
+    trie->index = index;
 }
 class Solution
 {
@@ -41,27 +36,29 @@ class Solution
     int n;
 
   public:
-    void dfs(vector<vector<char>> &board, int x, int y, shared_ptr<Trie> trie, set<int> &match_set)
+    void dfs(vector<vector<char>> &board, vector<string> &words, int x, int y, shared_ptr<Trie> trie, vector<string> &result)
     {
-        if (trie->index != -1)
-            match_set.insert(trie->index);
-        if (trie->is_leave)
-            return;
+
         if (x < 0 || x >= m || y < 0 || y >= n) // edge case
             return;
-        char temp = board[x][y]; // for save memory
-        if (temp == '\0')
+        if (board[x][y] == '\0')
             return;
-        board[x][y] = '\0';
-        auto sub_trie = trie->nodes[temp - 'a'];
+        auto sub_trie = trie->nodes[board[x][y] - 'a'];
         if (sub_trie)
         {
-            dfs(board, x - 1, y, sub_trie, match_set);
-            dfs(board, x + 1, y, sub_trie, match_set);
-            dfs(board, x, y - 1, sub_trie, match_set);
-            dfs(board, x, y + 1, sub_trie, match_set);
+            if (sub_trie->index != -1)
+            {
+                result.push_back(words[sub_trie->index]);
+                sub_trie->index = -1;
+            }
+            char temp = board[x][y]; // for save memory
+            board[x][y] = '\0';
+            dfs(board, words, x - 1, y, sub_trie, result);
+            dfs(board, words, x + 1, y, sub_trie, result);
+            dfs(board, words, x, y - 1, sub_trie, result);
+            dfs(board, words, x, y + 1, sub_trie, result);
+            board[x][y] = temp;
         }
-        board[x][y] = temp;
     }
     vector<string> findWords(vector<vector<char>> &board, vector<string> &words)
     {
@@ -77,21 +74,18 @@ class Solution
         // build trie
         auto trie = make_shared<Trie>();
         for (size_t i = 0; i < words_size; ++i)
-            insert_word(trie, words[i], 0, i);
+            insert_word(trie, words[i], i);
         // dfs search
-        set<int> match_set;
+        vector<string> result;
         for (int i = 0; i < m; ++i)
         {
             for (int j = 0; j < n; ++j)
             {
-                if (match_set.size() == words_size)
+                if (result.size() == words_size)
                     return words;
-                dfs(board, i, j, trie, match_set); //try every position
+                dfs(board, words, i, j, trie, result); //try every position
             }
         }
-        vector<string> result;
-        for (auto i : match_set)
-            result.push_back(words[i]);
         return result;
     }
 };
