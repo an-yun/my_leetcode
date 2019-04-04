@@ -14,6 +14,7 @@
             "cwd": "${workspaceFolder}/build", // 调试程序时的工作目录
             "terminal": "integrated",
             "stopOnEntry": false,
+            "expressions": "native",
             "preLaunchTask": "Linux Compile" // 调试会话开始前执行的任务，一般为编译程序。与tasks.json的label相对应,
             
         },

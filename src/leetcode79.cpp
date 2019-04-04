@@ -20,7 +20,7 @@ class Solution
         if (x < 0 || x >= m || y < 0 || y >= n) // edge case
             return false;
         char temp = board[x][y];        // for save memory
-        if (word[start] != board[x][y]) // for match case
+        if (word[start] != board[x][y]) // for match char
             return false;
         else
             board[x][y] = '\0';// Using board  can save memory here
