@@ -1,3 +1,6 @@
+#ifndef IOUTILS_HPP
+#define IOUTILS_HPP
+
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -74,3 +77,5 @@ inline void println(const T &t, const Args... rest)
     print(t, rest...);
     std::cout << std::endl;
 }
+
+#endif
