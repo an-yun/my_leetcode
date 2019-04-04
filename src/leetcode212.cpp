@@ -4,92 +4,97 @@
 #include <initializer_list>
 #include <list>
 #include <map>
+#include <memory>
 #include <numeric>
+#include <set>
 #include <string>
 #include <vector>
-#include <memory>
 
 using namespace std;
 class Trie
 {
-    bool leave;
+  public:
+    int index;
+    bool is_leave;
     shared_ptr<Trie> nodes[26];
-    Trie(bool leave = false):leave(leave){}
+    Trie(int index = -1) : index(index), is_leave(true) {}
 };
+void insert_word(shared_ptr<Trie> trie, const string &word, size_t p, int index = -1)
+{
+    if (p >= word.size())
+    {
+        trie->index = index;
+        return;
+    }
+    int i = word[p] - 'a';
+    if (trie->nodes[i] == nullptr)
+    {
+        trie->is_leave = false;
+        trie->nodes[i] = make_shared<Trie>();
+    }
+    insert_word(trie->nodes[i], word, p + 1, index);
+}
 class Solution
 {
+  private:
+    int m;
+    int n;
+
   public:
-    void dfs(vector<vector<char>> &board, vector<string> &words, size_t start, int x, int y, int m, int n, size_t words_size, vector<bool> &continue_matched, vector<bool> &matched_words)
+    void dfs(vector<vector<char>> &board, int x, int y, shared_ptr<Trie> trie, set<int> &match_set)
     {
-        if(find(continue_matched.begin(), continue_matched.end(), true) == continue_matched.end()) // no word can match
+        if (trie->index != -1)
+            match_set.insert(trie->index);
+        if (trie->is_leave)
             return;
-        for (size_t i = 0; i < words_size; ++i)
-        {
-            if (continue_matched[i] && start >= words[i].size()) // for match case
-            {
-                matched_words[i] = true;
-                continue_matched[i] = false;
-            }
-        }
         if (x < 0 || x >= m || y < 0 || y >= n) // edge case
             return;
-        char temp_char = board[x][y]; // for save memory
-        vector<bool> temp_continue_matched = continue_matched;
-        for (size_t i = 0; i < words_size; ++i)
+        char temp = board[x][y]; // for save memory
+        if (temp == '\0')
+            return;
+        board[x][y] = '\0';
+        auto sub_trie = trie->nodes[temp - 'a'];
+        if (sub_trie)
         {
-            if (continue_matched[i] && temp_char == words[i][start]) // for match case
-                board[x][y] = '\0';
-            else
-                continue_matched[i] = false;
+            dfs(board, x - 1, y, sub_trie, match_set);
+            dfs(board, x + 1, y, sub_trie, match_set);
+            dfs(board, x, y - 1, sub_trie, match_set);
+            dfs(board, x, y + 1, sub_trie, match_set);
         }
-        if(find(continue_matched.begin(), continue_matched.end(), true) != continue_matched.end())
-        {
-            dfs(board, words, start + 1, x - 1, y, m, n, words_size, continue_matched, matched_words);
-            dfs(board, words, start + 1, x + 1, y, m, n, words_size, continue_matched, matched_words);
-            dfs(board, words, start + 1, x, y - 1, m, n, words_size, continue_matched, matched_words);
-            dfs(board, words, start + 1, x, y + 1, m, n, words_size, continue_matched, matched_words);
-        }
-
-        board[x][y] = temp_char; // restore board[x][y]
-        continue_matched = temp_continue_matched;
+        board[x][y] = temp;
     }
     vector<string> findWords(vector<vector<char>> &board, vector<string> &words)
     {
         size_t words_size = words.size();
         if (words_size == 0)
             return {};
-        int m = board.size();
+        m = board.size();
         if (m == 0)
             return {};
-        int n = board[0].size();
+        n = board[0].size();
         if (n == 0)
             return {};
+        // build trie
+        auto trie = make_shared<Trie>();
+        for (size_t i = 0; i < words_size; ++i)
+            insert_word(trie, words[i], 0, i);
         // dfs search
-        vector<bool> continue_matched(words_size, true), matched_words(words_size, false);
+        set<int> match_set;
         for (int i = 0; i < m; ++i)
         {
             for (int j = 0; j < n; ++j)
             {
-                if (find(matched_words.begin(), matched_words.end(), false) != matched_words.end()) // if not all words are matched, continue to try
-                {
-                    dfs(board, words, 0, i, j, m, n, words_size, continue_matched, matched_words); //try every position
-                }
-                else
+                if (match_set.size() == words_size)
                     return words;
+                dfs(board, i, j, trie, match_set); //try every position
             }
         }
         vector<string> result;
-        for (size_t i = 0; i < words_size; ++i)
-        {
-            if (matched_words[i])
-                result.push_back(words[i]);
-        }
+        for (auto i : match_set)
+            result.push_back(words[i]);
         return result;
     }
 };
-
-
-
 
 int main()
 {
@@ -98,8 +103,12 @@ int main()
         {'o', 'a', 'a', 'n'},
         {'e', 't', 'a', 'e'},
         {'i', 'h', 'k', 't'},
-        {'i', 'f', 'l', 'v'}};
-    vector<string> wrods{"oath", "pea", "eat", "rain","eate","eak","eaklvte","eaklvt","etv","etp"};
-    println(s.findWords(board, wrods));
+        {'i', 'f', 'l', 'v'}},
+        board1{
+            {'a'}};
+    vector<string> words{
+        "oath", "pea", "eat", "rain", "eate", "eak", "eaklvte", "eaklvt", "etv", "etp"},
+        words1{"a"};
+    println(s.findWords(board, words));
     return 0;
 }
