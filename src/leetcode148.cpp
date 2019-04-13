@@ -61,7 +61,7 @@ public:
 
 ListNode *make_list(initializer_list<int> nums)
 {
-    sort(nums.begin(), nums.end());
+    //sort(nums.begin(), nums.end());
     ListNode *dummy_head = new ListNode(0), *node = dummy_head;
     for (auto num : nums)
     {
