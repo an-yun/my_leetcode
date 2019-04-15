@@ -18,7 +18,7 @@ int main()
         printf("\n");
     }(buff.c_str());
     // 需要char * 的C函数
-    [s](char *buff) {
+    [&s](char *buff) {
         sprintf(buff, "%s %s %s", s,s,s);
     }(buff.data());
     std::cout << buff << std::endl;
