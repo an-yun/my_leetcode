@@ -4,12 +4,14 @@
             "name": "Linux",
             "browse": {
                 "path": [
+                    "/usr/lib/llvm-7/include/c++/v1",
                     "${workspaceFolder}",
                     "${workspaceFolder}/include"
                 ],
                 "limitSymbolsToIncludedHeaders": true
             },
             "includePath": [
+                "/usr/lib/llvm-7/include/c++/v1",
                 "${workspaceFolder}",
                 "${workspaceFolder}/include"
             ],
