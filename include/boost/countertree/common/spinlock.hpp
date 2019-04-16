@@ -53,7 +53,7 @@ explicit spinlock ( ) NOEXCEPT
 {    af.clear() ;
 }
 #else
-explicit spinlock ( ) NOEXCEPT : af ( ATOMIC_FLAG_INIT ){ };
+explicit spinlock ( ) NOEXCEPT : af ATOMIC_FLAG_INIT { };
 #endif
 
 //---------------------------------------------------------------------------

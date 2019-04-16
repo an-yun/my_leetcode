@@ -37,6 +37,7 @@ template <class T >
 struct seed
 {   T *P ;
     uint32_t N ;
+    seed():P(nullptr),N(0){}
 };
 
 
@@ -76,7 +77,7 @@ T & operator * () { return *D.P;};
 };// ------------------ end class unique_object ---------------------
 
 template <class T >
-THREAD_LOCAL seed<T> unique_object<T>::D = { NULL , 0 } ;
+THREAD_LOCAL seed<T> unique_object<T>::D;
 };// -------------------- end namespace alloc ---------------------
 };// -------------------- end namespace countertree ------------------
 #endif
