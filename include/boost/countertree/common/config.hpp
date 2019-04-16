@@ -18,8 +18,8 @@
 //#include <boost/thread.hpp>
 //#define BOOST_LIB_NAME  boost_thread
 #include <limits>
-//#include <stdint.h>
-#include <boost/cstdint.hpp>
+#include <stdint.h>
+//#include <boost/cstdint.hpp>
 #include <ciso646>
 #include <cassert>
 
