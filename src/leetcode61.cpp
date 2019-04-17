@@ -64,13 +64,16 @@ ListNode *make_list(initializer_list<int> nums)
 
 void print_list(ListNode *head)
 {
-    print(head->val);
-    head = head->next;
-    while (head)
+    if(head)
     {
-        print("->");
         print(head->val);
         head = head->next;
+        while (head)
+        {
+            print("->");
+            print(head->val);
+            head = head->next;
+        }
     }
     println();
 }
