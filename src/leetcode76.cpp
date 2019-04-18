@@ -20,24 +20,26 @@ public:
             return "";
         string result;
         int min_len = -1;
-        map<char, int> right_pos;// maintain most right position for every char in t
-        set<int> window_left;//maintian min window left
-        for(auto ch:t) right_pos[ch] = -1;
-        window_left.insert(-1);
+        multimap<char, int> right_pos;// maintain most right position for every char in t
+        multiset<int> window_left;//maintian min window left
+        for(auto ch:t) 
+        {
+            right_pos.insert({ch,-1});
+            window_left.insert(-1);
+        }
         for(int i=0; i<m; ++i)
         {
             auto ch = s[i];
-            auto pos_pair = right_pos.find(ch);
-            if( pos_pair != right_pos.end() )
+            auto pos_pair = right_pos.lower_bound(ch);
+            if( pos_pair != right_pos.end() && pos_pair->first == ch )
             { 
-                int &pos = pos_pair->second;
                 //remove pre window_left
-                if(pos != -1 || static_cast<int>(window_left.size()) >= n)
-                    window_left.erase(pos);
+                window_left.erase(window_left.lower_bound(pos_pair->second));
                 //update right pos
-                pos = i;
+                right_pos.erase(pos_pair);
+                right_pos.insert({ch, i});
                 //insert new window_left
-                window_left.insert(pos);
+                window_left.insert(i);
                 //compute the min window
                 auto the_left = *window_left.begin();
                 if(the_left >= 0)
@@ -59,6 +61,6 @@ public:
 int main()
 {
     Solution s;
-    println(s.minWindow("aa","aa"));
+    println(s.minWindow("ADOBACODEBANC","ABC"));
     return 0;
 }
