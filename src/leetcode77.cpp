@@ -9,14 +9,13 @@ public:
     vector<vector<int>> combine(int n, int k) {
         if(k <= 0 || k > n) return {{}};
         vector<vector<vector<int>>> cache(k,vector<vector<int>>());
-        vector<vector<int>> first(n-k+1, {1});
-        for(int i=1;i<= n-k+1;++i)first[i-1][0] = i;
-        cache[0] = first;
+        cache[0] = {{1}};
         vector<vector<int>> pre;
-        for(int i = n - k +2; i <= n ;++i)
+        for(int i = 2; i <= n ;++i)
         {
-            pre.clear();
-            for(int j = 0; j<= i - n + k -1;++j)
+            int j = max(0, k+i-n-1);
+            pre = j?cache[j-1]:vector<vector<int>>{{}};
+            for(; j< k && j < i ;++j)
             {
                 auto current = pre;
                 for(auto &com:current) com.push_back(i);
@@ -31,6 +30,6 @@ public:
 int main()
 {
     Solution s;
-    println(s.combine(4,2));
+    println(s.combine(5,3));
     return 0;
 }
