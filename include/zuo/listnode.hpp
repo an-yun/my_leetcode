@@ -15,15 +15,13 @@ struct ListNode{
 
 ListNode *make_list(std::initializer_list<int> nums)
 {
-    ListNode *dummy_head = new ListNode(0), *node = dummy_head;
+    ListNode dummy_head (0), *node = &dummy_head;
     for (auto num : nums)
     {
         node->next = new ListNode(num);
         node = node->next;
     }
-    node = dummy_head->next;
-    delete dummy_head;
-    return node;
+    return dummy_head.next;
 }
 
 void print_list(ListNode *head)
@@ -50,6 +48,5 @@ inline void println(ListNode *node)
     print_list(node);
     println();
 }
-
 
 #endif
