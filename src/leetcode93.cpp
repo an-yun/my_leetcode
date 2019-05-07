@@ -40,7 +40,7 @@ public:
                     {
                         if(check(s,pos[t-1],++pos[t]))
                         {
-                            if(t < 3)pos[t+1] = pos[t]+1;
+                            if(t < 3)pos[t+1] = pos[t];
                             ++t;
                         }
                     }
@@ -70,6 +70,6 @@ public:
 int main()
 {
     Solution s;
-    println(s.restoreIpAddresses("21113"));
+    println(s.restoreIpAddresses("2112135"));
     return 0;
 }
