@@ -1,4 +1,4 @@
-#include "zuo/ioutils.hpp"
+#include "zuo/listnode.hpp"
 #include <algorithm>
 #include <cmath>
 #include <initializer_list>
@@ -9,12 +9,6 @@
 
 using namespace std;
 
-struct ListNode
-{
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
 
 /**
  * Definition for singly-linked list.
@@ -49,39 +43,10 @@ class Solution
     }
 };
 
-ListNode *make_list(initializer_list<int> nums)
-{
-    ListNode *dummy_head = new ListNode(0), *node = dummy_head;
-    for (auto num : nums)
-    {
-        node->next = new ListNode(num);
-        node = node->next;
-    }
-    node = dummy_head->next;
-    delete dummy_head;
-    return node;
-}
-
-void print_list(ListNode *head)
-{
-    if(head)
-    {
-        print(head->val);
-        head = head->next;
-        while (head)
-        {
-            print("->");
-            print(head->val);
-            head = head->next;
-        }
-    }
-    println();
-}
-
 int main()
 {
     Solution s;
     auto head = make_list({0, 1, 2});
-    print_list(s.rotateRight(head, 4));
+    println(s.rotateRight(head, 4));
     return 0;
 }
