@@ -13,6 +13,7 @@
             ], // 程序调试时传递给程序的命令行参数，一般设为空即可
             "cwd": "${workspaceFolder}/build", // 调试程序时的工作目录
             "terminal": "integrated",
+            //"initCommands": ["command script import /home/zuo/.vscode/extensions/vadimcn.vscode-lldb-1.2.2/lldb/lib/python2.7/site-packages/lldb/formatters/cpp/libcxx.py"],
             "stopOnEntry": false,
             "expressions": "native",
             "preLaunchTask": "Linux Compile" // 调试会话开始前执行的任务，一般为编译程序。与tasks.json的label相对应,
