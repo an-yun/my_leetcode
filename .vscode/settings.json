@@ -1,6 +1,6 @@
 {
-    // "http.proxy": "https://114.212.84.161:8087",
-    // "http.proxyStrictSSL": false,
+    "http.proxy": "https://114.212.84.161:8087",
+    "http.proxyStrictSSL": false,
     "files.associations": {
         "system_error": "cpp",
         "type_traits": "cpp",
