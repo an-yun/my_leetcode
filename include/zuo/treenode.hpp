@@ -28,7 +28,7 @@ void free_tree(TreeNode *root)
     if(root)
     {
         free_tree(root->left);
-        free_tree(root->left);
+        free_tree(root->right);
         delete root;
     }
 }
@@ -80,7 +80,7 @@ void free_print_tree(PrintUnit *root)
     if(root)
     {
         free_print_tree(root->left);
-        free_print_tree(root->left);
+        free_print_tree(root->right);
         delete root;
     }
 }
