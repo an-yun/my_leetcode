@@ -2,7 +2,8 @@
 
 int main()
 {
-    auto tree = make_tree({1, 21, 2, null, 3, 4, 5, 6,null,7,null,null,null,8});
+    auto tree = make_tree({1,null,2,3});
     println(tree);
+    free_tree(tree);
     return 0;
 }

@@ -23,6 +23,16 @@ struct TreeNode
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+void free_tree(TreeNode *root)
+{
+    if(root)
+    {
+        free_tree(root->left);
+        free_tree(root->left);
+        delete root;
+    }
+}
+
 TreeNode *make_tree(std::initializer_list<int> nums)
 {
     if (nums.size() == 0)
@@ -54,14 +64,6 @@ TreeNode *make_tree(std::initializer_list<int> nums)
     return root;
 }
 
-size_t get_height(TreeNode *root)
-{
-    if (root)
-        return std::max(get_height(root->left), get_height(root->right)) + 1;
-    else
-        return 0;
-}
-
 struct PrintUnit
 {
     size_t left_blank;
@@ -70,10 +72,20 @@ struct PrintUnit
     PrintUnit *left;
     PrintUnit *right;
     std::string str;
-    PrintUnit(){};
+    PrintUnit():left_blank(0),right_blank(0),height(0),left(nullptr),right(nullptr),str(){};
 };
 
-PrintUnit *build_tree_print(TreeNode *root)
+void free_print_tree(PrintUnit *root)
+{
+    if(root)
+    {
+        free_print_tree(root->left);
+        free_print_tree(root->left);
+        delete root;
+    }
+}
+
+PrintUnit *build_print_tree(TreeNode *root)
 {
     PrintUnit *print_unit(nullptr);
     if (root)
@@ -82,20 +94,19 @@ PrintUnit *build_tree_print(TreeNode *root)
         PrintUnit &current_print = *print_unit;
         current_print.str = std::to_string(root->val);
         if (root->left)
-            current_print.left = build_tree_print(root->left);
+            current_print.left = build_print_tree(root->left);
         if (root->right)
-            current_print.right = build_tree_print(root->right);
+            current_print.right = build_print_tree(root->right);
     }
     return print_unit;
 }
 
-void compute_print_info(PrintUnit *root_print)
+void compute_print_info(PrintUnit *root_print, std::list<std::list<PrintUnit *>> &layer_q)
 {
     if (root_print)
     {
         std::list<PrintUnit *> print_q{root_print};
         //分层
-        std::list<std::list<PrintUnit *>> layer_q;
         while (!print_q.empty())
         {
             layer_q.push_front(print_q);
@@ -116,6 +127,7 @@ void compute_print_info(PrintUnit *root_print)
                 print_q.pop_front();
             } while (print_unit != layer_end);
         }
+        print_q = layer_q.front();
         layer_q.pop_front();
         for (auto &layer : layer_q)
         {
@@ -142,47 +154,42 @@ void compute_print_info(PrintUnit *root_print)
                     p->right_blank = layer_height + r->str.size() + r->right_blank;
             }
         }
+        layer_q.push_front(print_q);
     }
 }
 
-void print_sub_tree(PrintUnit *root_print)
+void print_sub_tree(std::list<std::list<PrintUnit *>> &layer_q)
 {
-    std::list<PrintUnit *> print_q{root_print};
-    size_t len = root_print->left_blank + root_print->str.size() + root_print->right_blank;
+    auto &root_print = *layer_q.back().front();
+    size_t len = root_print.left_blank + root_print.str.size() + root_print.right_blank;
     std::string empty_line(len, ' ');
-    while (!print_q.empty())
+    for (auto b = layer_q.rbegin(), e = layer_q.rend(); b != e;b++)
     {
-        PrintUnit *layer_end = print_q.back();
-        PrintUnit *print_unit;
         auto line = empty_line;
         auto branch_line = empty_line;
-        do
+        auto height = b->front()->height;
+        for (auto print_unit : *b)
         {
-            print_unit = print_q.front();
-            //添加内容
             auto &str = print_unit->str;
             std::copy(str.begin(), str.end(), line.begin() + print_unit->left_blank);
-            //下一层入队列
+            //处理下一层
             auto l = print_unit->left;
             auto r = print_unit->right;
             if (l)
             {
-                l->left_blank = print_unit->left_blank - print_unit->height - l->str.size();
+                l->left_blank = print_unit->left_blank - height - l->str.size();
                 branch_line[print_unit->left_blank - 1] = '/';
-                print_q.push_back(l);
             }
             if (r)
             {
-                r->left_blank = print_unit->left_blank + print_unit->str.size() + print_unit->height;
+                r->left_blank = print_unit->left_blank + print_unit->str.size() + height;
                 branch_line[print_unit->left_blank + str.size()] = '\\';
-                print_q.push_back(r);
             }
-            print_q.pop_front();
-        } while (print_unit != layer_end);
+        }
         //打印当前层
         println(line);
         //打印连接线
-        for (size_t i = 0; i < print_unit->height; ++i)
+        for (size_t i = 0; i < height; ++i)
         {
             println(branch_line);
             for (size_t j = 0; j < len; ++j)
@@ -203,9 +210,11 @@ void print_tree(TreeNode *root)
 {
     if (root)
     {
-        PrintUnit *root_print = build_tree_print(root);
-        compute_print_info(root_print);
-        print_sub_tree(root_print);
+        PrintUnit *root_print = build_print_tree(root);
+        std::list<std::list<PrintUnit *>> layer_q;
+        compute_print_info(root_print,layer_q);
+        print_sub_tree(layer_q);
+        free_print_tree(root_print);
     }
 }
 
