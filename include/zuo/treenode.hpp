@@ -112,8 +112,6 @@ void compute_print_info(PrintUnit *root_print, std::list<std::list<PrintUnit *>>
             layer_q.push_front(print_q);
             PrintUnit *layer_end = print_q.back();
             PrintUnit *print_unit;
-            size_t layer_height = 0;
-            std::for_each(print_q.begin(), print_q.end(), [&layer_height](const PrintUnit *p) { layer_height = std::max(layer_height, p->height); });
             do
             {
                 print_unit = print_q.front();
