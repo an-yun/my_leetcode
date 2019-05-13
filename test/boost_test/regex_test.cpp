@@ -1,6 +1,8 @@
 #include <string>
 #include <iostream>
 #include <boost/regex.hpp>
+//编译选项 "-lboost_regex"
+#include "zuo/ioutils.hpp"
 
 boost::regex e("(\\d{3,4})[- ]?(\\d{4})[- ]?(\\d{4})[- ]?(\\d{4})");
 
@@ -27,6 +29,6 @@ bool is_possible_card_number(const std::string& input)
 }
 int main()
 {
-   std::cout<<is_possible_card_number("17312345687");
+   println(is_possible_card_number("17312345687"));
    return 0;
 }
