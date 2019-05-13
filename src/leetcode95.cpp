@@ -24,17 +24,20 @@ private:
             return {new TreeNode(1)};
         default:
             vector<TreeNode *> all_trees;
-            for (int i = 0; i < n; i++)
+            vector<vector<TreeNode *>> all_sub_trees(n);
+            for (int i = 0; i < n; ++i)
+                all_sub_trees[i] = generateUniqTrees(i);
+            for (int i = 0; i < n; ++i)
             {
-                auto l_trees = generateUniqTrees(i);
-                auto r_trees = generateUniqTrees(n - 1 - i);
+                auto &l_trees = all_sub_trees[i];
+                auto &r_trees = all_sub_trees[n - 1 - i];
                 for (auto l : l_trees)
                 {
                     for (auto r : r_trees)
                     {
                         auto root = new TreeNode(0);
-                        root->left = l;
-                        root->right = r;
+                        root->left = clone(l);
+                        root->right = clone(r);
                         all_trees.push_back(root);
                     }
                 }
@@ -60,6 +63,18 @@ private:
             root->val = value++;
             inorderTraversal(root->right, value);
         }
+    }
+    TreeNode *clone(TreeNode *root)
+    {
+        if (root)
+        {
+            auto new_root = new TreeNode(*root);
+            new_root->left = clone(root->left);
+            new_root->right = clone(root->right);
+            return new_root;
+        }
+        else
+            return nullptr;
     }
 
 public:

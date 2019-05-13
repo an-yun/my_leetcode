@@ -64,6 +64,19 @@ TreeNode *make_tree(std::initializer_list<int> nums)
     return root;
 }
 
+TreeNode *clone_tree(TreeNode *root)
+{
+    if (root)
+    {
+        auto new_root = new TreeNode(*root);
+        new_root->left = clone_tree(root->left);
+        new_root->right = clone_tree(root->right);
+        return new_root;
+    }
+    else
+        return nullptr;
+}
+
 std::string to_string(TreeNode *root)
 {
 
@@ -259,7 +272,7 @@ inline void println(TreeNode *root)
     println();
 }
 
-inline void print(const std::vector<TreeNode*> trees)
+inline void print(const std::vector<TreeNode *> trees)
 {
     println("[");
     for (auto tree : trees)
@@ -271,7 +284,7 @@ inline void print(const std::vector<TreeNode*> trees)
     print("]");
 }
 
-inline void println(const std::vector<TreeNode*> trees)
+inline void println(const std::vector<TreeNode *> trees)
 {
     print(trees);
     println();
