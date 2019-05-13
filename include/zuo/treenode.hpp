@@ -259,4 +259,21 @@ inline void println(TreeNode *root)
     println();
 }
 
+inline void print(const std::vector<TreeNode*> trees)
+{
+    println("[");
+    for (auto tree : trees)
+    {
+        print("  [");
+        print(to_string(tree));
+        println("],");
+    }
+    print("]");
+}
+
+inline void println(const std::vector<TreeNode*> trees)
+{
+    print(trees);
+    println();
+}
 #endif
