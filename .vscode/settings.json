@@ -69,7 +69,8 @@
         "optional": "cpp",
         "__string": "cpp",
         "__debug": "cpp",
-        "__split_buffer": "cpp"
+        "__split_buffer": "cpp",
+        "__config": "cpp"
     },
 
 }
