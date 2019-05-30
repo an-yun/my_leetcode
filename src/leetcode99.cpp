@@ -15,6 +15,7 @@ class Solution {
     private:
         TreeNode *pre;
         TreeNode *swap_node;
+        TreeNode *swap_next;
         void inorder_recover(TreeNode *root)
         {
             if(root)
@@ -22,8 +23,16 @@ class Solution {
                 inorder_recover(root->left);
                 if(pre && pre->val > root->val)
                 {
-                    if(swap_node) swap(root->val, swap_node->val);
-                    else swap_node = pre;
+                    if(swap_node) 
+                    {
+                        swap(root->val, swap_node->val);
+                        swap_node = nullptr;
+                    }
+                    else 
+                    {
+                        swap_node = pre;
+                        swap_next = root;
+                    }
                 }
                 pre = root;
                 inorder_recover(root->right);
@@ -34,6 +43,7 @@ class Solution {
             pre = nullptr;
             swap_node = nullptr;
             inorder_recover(root);
+            if(swap_node) swap(swap_next->val, swap_node->val);
         }
 
 };
