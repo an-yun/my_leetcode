@@ -53,7 +53,7 @@ template <typename T, typename... Args>
 inline void print(const T &t, const Args... rest)
 {
     print(t);
-    print(", ");
+    print(' ');
     print(rest...);
 }
 
