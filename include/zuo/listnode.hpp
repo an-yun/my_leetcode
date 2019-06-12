@@ -24,6 +24,16 @@ ListNode *make_list(std::initializer_list<int> nums)
     return dummy_head.next;
 }
 
+void free_list(ListNode *head)
+{
+    if(head)
+    {
+        auto next = head->next;
+        delete head;
+        free_list(next);
+    }
+}
+
 void print_list(ListNode *head)
 {
     if(head)
