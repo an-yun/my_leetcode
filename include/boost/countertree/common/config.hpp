@@ -13,7 +13,6 @@
 #ifndef __COUNTERTREE_COMMON_CONFIG_HPP
 #define __COUNTERTREE_COMMON_CONFIG_HPP
 
-#include <boost/config.hpp>
 #include <cstdlib>
 //#include <boost/thread.hpp>
 //#define BOOST_LIB_NAME  boost_thread
