@@ -14,7 +14,21 @@ using namespace std;
  * };
  */
 class Solution {
-    pair<TreeNode*,TreeNode*> flatten_subtree(TreeNode* root)
+    TreeNode *pre;
+    void preorder(TreeNode *root)
+    {
+        if(root)
+        {
+            if(pre)
+                pre->right = root;
+            pre = root;
+            auto l = pre->left, r = pre->right;
+            pre->left = nullptr;
+            preorder(l);
+            preorder(r);
+        }
+    }
+    pair<TreeNode *, TreeNode *> flatten_subtree(TreeNode *root)
     {
         if(root)
         {
@@ -42,7 +56,8 @@ class Solution {
 
   public:
     void flatten(TreeNode* root) {
-        flatten_subtree(root);
+        pre = nullptr;
+        preorder(root);
     }
 };
 
