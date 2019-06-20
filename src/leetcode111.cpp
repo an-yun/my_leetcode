@@ -22,7 +22,6 @@ public:
             if(l && r) return 1 + min(l,r);
             else return 1+l+r;
         }
-            
         else return 0;
     }
 };
