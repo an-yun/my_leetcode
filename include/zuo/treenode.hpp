@@ -23,7 +23,15 @@ struct TreeNode
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-void free_tree(TreeNode *root)
+struct Node:public TreeNode
+{
+    TreeNode *next;
+    Node(int x=-1):TreeNode(x),next(nullptr){}
+};
+
+
+template<class TreeType>
+void free_tree(TreeType *root)
 {
     if (root)
     {
@@ -33,20 +41,21 @@ void free_tree(TreeNode *root)
     }
 }
 
-TreeNode *make_tree(std::initializer_list<int> nums)
+template<class TreeType=TreeNode>
+TreeType *make_tree(std::initializer_list<int> nums)
 {
     if (nums.size() == 0)
         return nullptr;
-    std::queue<TreeNode *> tree_q;
-    auto root = new TreeNode(*nums.begin());
+    std::queue<TreeType *> tree_q;
+    auto root = new TreeType(*nums.begin());
     tree_q.push(root);
-    TreeNode *add_right(nullptr);
+    TreeType *add_right(nullptr);
     for (auto b = nums.begin() + 1, e = nums.end(); b != e; ++b)
     {
-        TreeNode *node(nullptr);
+        TreeType *node(nullptr);
         if (*b != null)
         {
-            node = new TreeNode(*b);
+            node = new TreeType(*b);
             tree_q.push(node);
         }
         if (add_right)
@@ -64,11 +73,12 @@ TreeNode *make_tree(std::initializer_list<int> nums)
     return root;
 }
 
-TreeNode *clone_tree(TreeNode *root)
+template<class TreeType>
+TreeType *clone_tree(TreeType *root)
 {
     if (root)
     {
-        auto new_root = new TreeNode(*root);
+        auto new_root = new TreeType(*root);
         new_root->left = clone_tree(root->left);
         new_root->right = clone_tree(root->right);
         return new_root;
@@ -261,7 +271,6 @@ void print_tree(TreeNode *root)
     }
 }
 
-// 打印ListNode类型
 inline void print(TreeNode *root)
 {
     print_tree(root);
@@ -272,6 +281,15 @@ inline void println(TreeNode *root)
     println();
 }
 
+inline void print(Node *root)
+{
+    print_tree(root);
+}
+inline void println(Node *root)
+{
+    print_tree(root);
+    println();
+}
 inline void print(const std::vector<TreeNode *> trees)
 {
     println("[");
@@ -285,6 +303,18 @@ inline void print(const std::vector<TreeNode *> trees)
 }
 
 inline void println(const std::vector<TreeNode *> trees)
+{
+    print(trees);
+    println();
+}
+
+inline void print(const std::vector<Node *> trees)
+{
+    std::vector<TreeNode *> parent_trees(trees.begin(),trees.end());
+    print(parent_trees);
+}
+
+inline void println(const std::vector<Node *> trees)
 {
     print(trees);
     println();
