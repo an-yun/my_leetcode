@@ -21,11 +21,13 @@ struct TreeNode
     TreeNode *left;
     TreeNode *right;
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+    virtual ~TreeNode(){}
 };
 
 struct Node:public TreeNode
 {
     TreeNode *next;
+    
     Node(int x=-1):TreeNode(x),next(nullptr){}
 };
 
