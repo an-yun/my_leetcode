@@ -27,26 +27,20 @@ public:
     Node* connect(Node* root) {
         if(!root)
             return root;
-        list<Node *> node_q{root};
-        auto layer_end = root;
-        while(!node_q.empty())
-        {
-            auto node = node_q.front();
-            node_q.pop_front();
-            if(node->left)
-                node_q.push_back(static_cast<Node *>(node->left));
-            if(node->right)
-                node_q.push_back(static_cast<Node *>(node->right));
-            if(node != layer_end)
-                node->next = node_q.front();
-            else
+        Node* pre = root, *cur = nullptr;
+        while(pre->left){
+            cur = pre;
+            //for current layer
+            while(cur)
             {
-                if(!node_q.empty())
-                    layer_end = node_q.back();
-                node->next = nullptr;
+                static_cast<Node *>(cur->left)->next = cur->right;
+                if(cur->next)
+                    static_cast<Node *>(cur->right)->next = static_cast<Node *>(cur->next)->left;
+                cur = static_cast<Node *>(cur->next);
             }
-
+            pre = static_cast<Node *>(pre->left);
         }
+
         return root;
     }
 };
