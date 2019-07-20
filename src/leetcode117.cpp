@@ -28,17 +28,33 @@ public:
         if(!root)
             return root;
         Node* pre = root, *cur = nullptr;
-        while(pre->left){
+        while(pre->left || pre->right){
             cur = pre;
             //for current layer
-            while(cur)
+            Node *pre_connect = nullptr;
+            while (cur)
             {
-                static_cast<Node *>(cur->left)->next = cur->right;
-                if(cur->next)
-                    static_cast<Node *>(cur->right)->next = static_cast<Node *>(cur->next)->left;
+                if(cur->left)
+                {
+                    if(pre_connect)
+                        pre_connect->next = cur->left;
+                    if(cur->right)
+                    {
+                        static_cast<Node *>(cur->left)->next = cur->right;
+                        pre_connect = static_cast<Node *>(cur->right);
+                    }
+                    else
+                        pre_connect = static_cast<Node *>(cur->left);
+                }
+                else if(cur->right)
+                {
+                    if(pre_connect)
+                        pre_connect->next = cur->right;
+                    pre_connect = static_cast<Node *>(cur->right);
+                }
                 cur = static_cast<Node *>(cur->next);
             }
-            pre = static_cast<Node *>(pre->left);
+            pre = pre->left?static_cast<Node *>(pre->left):static_cast<Node *>(pre->right);
         }
 
         return root;
