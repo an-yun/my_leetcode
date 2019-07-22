@@ -29,8 +29,7 @@ struct Node:public TreeNode
     TreeNode *next;
     
     Node(int x=-1):TreeNode(x),next(nullptr){}
-    Node(int _val, Node* _left, Node* _right, Node* _next) {
-        val = _val;
+    Node(int _val, Node* _left, Node* _right, Node* _next):TreeNode(_val) {
         left = _left;
         right = _right;
         next = _next;
