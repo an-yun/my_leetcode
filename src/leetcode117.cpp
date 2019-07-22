@@ -25,38 +25,28 @@ public:
 class Solution {
 public:
     Node* connect(Node* root) {
-        if(!root)
-            return root;
-        Node* pre = root, *cur = nullptr;
-        while(pre->left || pre->right){
-            cur = pre;
+        auto node = root;
+        while(node)
+        {
+            Node temp_node(0, nullptr, nullptr, nullptr);
+            auto current_node = &temp_node; //next layer head
             //for current layer
-            Node *pre_connect = nullptr;
-            while (cur)
+            while(node)
             {
-                if(cur->left)
+                if(node->left)
                 {
-                    if(pre_connect)
-                        pre_connect->next = cur->left;
-                    if(cur->right)
-                    {
-                        static_cast<Node *>(cur->left)->next = cur->right;
-                        pre_connect = static_cast<Node *>(cur->right);
-                    }
-                    else
-                        pre_connect = static_cast<Node *>(cur->left);
+                    current_node->next = node->left;
+                    current_node = static_cast<Node*>(current_node->next);
                 }
-                else if(cur->right)
+                if(node->right)
                 {
-                    if(pre_connect)
-                        pre_connect->next = cur->right;
-                    pre_connect = static_cast<Node *>(cur->right);
+                    current_node->next = node->right;
+                    current_node = static_cast<Node*>(current_node->next);
                 }
-                cur = static_cast<Node *>(cur->next);
+                node = static_cast<Node *>(node->next);
             }
-            pre = pre->left?static_cast<Node *>(pre->left):static_cast<Node *>(pre->right);
+            node = static_cast<Node*> (temp_node.next);
         }
-
         return root;
     }
 };
