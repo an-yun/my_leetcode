@@ -11,7 +11,6 @@ public:
         auto s = triangle.size();
         if(s == 0)
             return 0;
-
         for (auto i = s; i > 1; --i)
         {
             for (auto j = 0; j + 1u < i; ++j)
