@@ -67,7 +67,7 @@ void* run(void *arg)
 }
 int main()
 {
-    vector<int> order{1, 2, 3};
+    vector<int> order{1, 3, 2};
     pthread_t pids[3];
     Foo f;
     vector<tuple<Foo*,void (Foo::*)(function<void()>), void (*)()>> functions{
@@ -75,8 +75,10 @@ int main()
         {&f,&Foo::second, &printSecond},
         {&f,&Foo::third, &printThird}};
     for (int i = 0; i < 3;++i)
-    {
         pthread_create(&pids[i], NULL, run, static_cast<void *> (&functions[order[i]-1]));
-    }
+    void *tret;
+    pthread_join(pids[0],&tret);
+    pthread_join(pids[1],&tret);
+    pthread_join(pids[2],&tret);
     return 0;
 }
