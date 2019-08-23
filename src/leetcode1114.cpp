@@ -7,7 +7,6 @@
 #include <utility>
 #include <tuple>
 using namespace std;
-#pragma comment(lib, "pthread")
 
 class Foo
 {
