@@ -1,16 +1,16 @@
 #include "zuo/ioutils.hpp"
 #include "zuo/treenode.hpp"
 #include <algorithm>
+#include <chrono>
 #include <numeric>
 #include <queue>
 #include <vector>
-#include <chrono>
 
 using namespace std;
 
 class Solution
 {
-  private:
+private:
     size_t word_length;
     size_t words_size;
     bool one_distinction(const string &word1, const string &word2)
@@ -64,7 +64,7 @@ class Solution
                         dis[i] = dis[node] + 1;
                         next_visit.push(i);
                     }
-                    else if(dis[node] + 1 <= dis[i])
+                    else if (dis[node] + 1 <= dis[i])
                         pre[i].push_back(node);
                 }
             }
@@ -73,10 +73,10 @@ class Solution
         add_path(pre, path, path_indexs);
     }
 
-  public:
+public:
     vector<vector<string>> findLadders(string beginWord, string endWord, vector<string> &wordList)
     {
-        
+
         if (wordList.size() == 0)
             return {};
         word_length = beginWord.size();
@@ -120,7 +120,7 @@ int main()
     // vector<string> word_list3{"a", "b", "c"};
     // println(s.findLadders("a", "c", word_list3));
 
-    vector<string> word_list4{"ted","tex","red","tax","tad","den","rex","pee"};
+    vector<string> word_list4{"ted", "tex", "red", "tax", "tad", "den", "rex", "pee"};
     println(s.findLadders("red", "tax", word_list4));
     return 0;
 }
