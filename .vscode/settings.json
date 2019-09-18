@@ -73,7 +73,9 @@
         "__config": "cpp",
         "__bit_reference": "cpp",
         "__functional_base": "cpp",
-        "__tuple": "cpp"
+        "__tuple": "cpp",
+        "__locale": "cpp",
+        "random": "cpp"
     },
 
 }
