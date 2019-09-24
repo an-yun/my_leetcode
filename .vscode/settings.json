@@ -75,7 +75,9 @@
         "__functional_base": "cpp",
         "__tuple": "cpp",
         "map": "cpp",
-        "iterator": "cpp"
+        "iterator": "cpp",
+        "__locale": "cpp",
+        "random": "cpp"
     },
 
 }
